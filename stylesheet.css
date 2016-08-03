@@ -1,0 +1,54 @@
+/* soft reset*/
+* {
+    padding: 0px;
+    margin: 0px;
+}
+/*User Choice Section*/
+#overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.8); /*dim the background*/
+}
+#userlightbox {
+    display: none;
+    color: white;
+}
+.userpick {
+    position: relative;
+    top: 150px;
+    width: 450px;
+    height: 250px;
+    margin: 0 auto;
+    z-index: 500;
+    background-color: rgba(150,100,255, 0.5);
+    box-shadow: 0 0 5px black;
+}
+.userpicktitle {
+    padding-top: 25px;
+}
+.userpick button.userbutton {
+    margin: 0 auto;
+    width: 75px;
+    padding: 10px;
+    border-radius: 15px;
+}
+.buttoncontainer {
+    margin-top: 25px;
+    text-align: center;
+}
+/*******************************************/
+
+/*MEDIA QUERIES*/
+@media screen and (max-width: 450px) {
+    .userpick {
+        width: 90%;
+    }
+}
+
+
+/*******************************************/
