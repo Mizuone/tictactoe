@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab);
 /* soft reset*/
 * {
     padding: 0px;
@@ -16,7 +17,7 @@
 }
 #userlightbox {
     display: none;
-    color: white;
+    color: black;
 }
 .userpick {
     position: relative;
@@ -25,30 +26,76 @@
     height: 250px;
     margin: 0 auto;
     z-index: 500;
-    background-color: rgba(150,100,255, 0.5);
-    box-shadow: 0 0 5px black;
+    background-color: white;
+    /*background-color: rgba(150,100,255, 0.5);*/
+    border: 1px solid black;
 }
 .userpicktitle {
     padding-top: 25px;
+}
+.userpicktitle p {
+    font-size: 1.4em;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+.userpicktitle h1 {
+    font-family: 'Roboto Slab', serif;
 }
 .userpick button.userbutton {
     margin: 0 auto;
     width: 75px;
     padding: 10px;
     border-radius: 15px;
+    background-color: black;
+    color: white;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+    font-family: 'Open Sans', sans-serif;
+}
+button.userbutton:first-child:hover {
+    color: aqua;
+}
+button.userbutton:last-child:hover {
+    color: red;
 }
 .buttoncontainer {
     margin-top: 25px;
     text-align: center;
 }
 /*******************************************/
-
+/*TicTacToe Board*/
+#tictactoebox {
+    display: none;
+    margin: 0 auto;
+    width: 700px;
+    height: 700px;
+}
+.row:first-child {
+    margin-top: 50px;
+}
+.col-xs-4 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+#topleft, #topcenter, #topright, #middleleft, #middlecenter, 
+#middleright, #bottomleft, #bottomcenter, #bottomright {
+    width: 100%;
+    height: 200px;
+    background-color: white;
+}
+#topleft { border-right: 1px solid black; border-bottom: 1px solid black;}
+#topcenter { border-bottom: 1px solid black; border-right: 1px solid black;}
+#topright { border-bottom: 1px solid black;}
+#middleleft { border-right: 1px solid black; border-bottom: 1px solid black;}
+#middlecenter { border-right: 1px solid black; border-bottom: 1px solid black;}
+#middleright { border-bottom: 1px solid black;}
+#bottomleft { border-right: 1px solid black;}
+#bottomcenter { border-right: 1px solid black;}
+/*******************************************/
 /*MEDIA QUERIES*/
 @media screen and (max-width: 450px) {
     .userpick {
         width: 90%;
     }
 }
-
-
 /*******************************************/
