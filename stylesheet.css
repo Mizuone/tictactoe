@@ -64,6 +64,15 @@ button.userbutton:last-child:hover {
 }
 /*******************************************/
 /*TicTacToe Board*/
+#gamestats {
+    margin: 0 auto;
+    display: none;
+    width: 700px;
+    text-align: center;
+}
+#gamestats h1 {
+    margin-top: 0px;
+}
 #tictactoebox {
     display: none;
     margin: 0 auto;
@@ -91,6 +100,16 @@ button.userbutton:last-child:hover {
 #middleright { border-bottom: 1px solid black;}
 #bottomleft { border-right: 1px solid black;}
 #bottomcenter { border-right: 1px solid black;}
+
+.append {
+    position: relative;
+    text-align: center;
+}
+.append p {
+    font-size: 9em;
+    color: white;
+    text-shadow: 0 0 5px black, 0 0 5px black;
+}
 /*******************************************/
 /*MEDIA QUERIES*/
 @media screen and (max-width: 450px) {
