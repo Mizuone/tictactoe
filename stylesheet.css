@@ -112,9 +112,37 @@ button.userbutton:last-child:hover {
 }
 /*******************************************/
 /*MEDIA QUERIES*/
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 600px) {
     .userpick {
         width: 90%;
+    }
+    #gamestats {
+        width: 100%;
+    }
+    #gamestats h1 {
+        font-size: 2em;
+    }
+    #tictactoebox {
+        width: 350px;;
+    }
+    #topleft, #topcenter, #topright, #middleleft, #middlecenter, 
+    #middleright, #bottomleft, #bottomcenter, #bottomright { 
+        height: 150px;
+    }
+    .append p {
+        font-size: 6em;
+    }
+}
+@media screen and (max-width: 360px) {
+    #gamestats h1 {
+        font-size: 1.7em;
+    }
+    #tictactoebox {
+        width: 300px;;
+    }
+    #topleft, #topcenter, #topright, #middleleft, #middlecenter, 
+    #middleright, #bottomleft, #bottomcenter, #bottomright { 
+        height: 125px;
     }
 }
 /*******************************************/
