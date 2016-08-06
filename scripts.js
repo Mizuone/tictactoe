@@ -8,16 +8,17 @@ $(document).ready(function() {
             computerPick,
             ticTacToeBoard = [],
             innerSelections = document.querySelectorAll(".append"),
-            turnCounter = 0;
+            turnCounter = 0,
+            runOnce = true,
+            tieGame = false;
             addSelectionEvents();
         
             setInterval(function() {
-                computerAI();
+                    computerAI();
+                    tie();
+                    checkwinner("X");
+                    checkwinner("O");
             }, 1);
-            setInterval(function() {
-                checkwinner("X");
-                checkwinner("O");
-            }, 100);
         
         
         $("#overlay").fadeIn(0, function() {
@@ -37,28 +38,29 @@ $(document).ready(function() {
             appendChoices();
         });
         
-        function checkwinner(XorO) {
+        function tie() {
             var boardPositions = 0;
-            for (var i = 0; i < ticTacToeBoard.length; i++) {
+            for (var i = 0; i < 9; i++) {
+                if (typeof(ticTacToeBoard[i]) !== "number") {
+                    boardPositions++;
+                }
+                if (boardPositions === 9) {
+                        $(".userpicktitle").html('<h1 class="text-center">' + "Tie!" + "</h1>" + '<p class="text-center">' + "Play Again?" + "</p>");
+                        displayWinnerDialog();
+                }
+            }
+        }
+        function checkwinner(XorO) {
+            //check row position
+            for (var i = 0; i <= 6; i += 3) {
                 if (ticTacToeBoard[i] === XorO && ticTacToeBoard[i + 1] === XorO && ticTacToeBoard[i + 2] === XorO) {
                     showWinner(computerPick);
                     showWinner(userPick);
                 }
             }
-            for (var i = 0; i < ticTacToeBoard.length; i+= ticTacToeBoard.length) {
+            //check column position
+            for (var i = 0; i <= 2; i += 2 ) {
                 if (ticTacToeBoard[i] === XorO && ticTacToeBoard[i + 3] === XorO && ticTacToeBoard[i + 6] === XorO) {
-                    showWinner(computerPick);
-                    showWinner(userPick);
-                }
-                if (ticTacToeBoard[i + 2] === XorO && ticTacToeBoard[i + 5] === XorO && ticTacToeBoard[i + 8] === XorO) {
-                    showWinner(computerPick);
-                    showWinner(userPick);
-                }
-                if (ticTacToeBoard[i] === XorO && ticTacToeBoard[i + 4] === XorO && ticTacToeBoard[i + 8] === XorO) {
-                    showWinner(computerPick);
-                    showWinner(userPick);
-                }
-                if (ticTacToeBoard[i + 2] === XorO && ticTacToeBoard[i + 4] === XorO && ticTacToeBoard[i + 6] === XorO) {
                     showWinner(computerPick);
                     showWinner(userPick);
                 }
@@ -66,39 +68,36 @@ $(document).ready(function() {
                     showWinner(computerPick);
                     showWinner(userPick);
                 }
-                setTimeout(function() {
-                    for (var i = 0; i < ticTacToeBoard.length; i++) {
-                        if (typeof(ticTacToeBoard[i]) !== "number") {
-                            boardPositions++;
-                        }
-                        if (boardPositions === ticTacToeBoard.length) {
-                            $(".userpicktitle").html('<h1 class="text-center">' + "Tie!" + "</h1>" + '<p class="text-center">' + "Play Again?" + "</p>");
-                            displayWinnerDialog();
-                        }
-                    }
-                }, 100);
             }
             
+            
+            //check diagonals postions 
+            for (var i = 0, x = 4; i <= 2; i += 2, x -= 2) {
+                if (ticTacToeBoard[i] === XorO && ticTacToeBoard[i + x] === XorO && ticTacToeBoard[i + x * 2] === XorO) {
+                    showWinner(computerPick);
+                    showWinner(userPick);
+                }
+                
+            }
             function showWinner(winner) {
                 if (winner === XorO) {
                     $(".userpicktitle").html('<h1 class="text-center">' + "Winner: " + winner + "</h1>" + '<p class="text-center">' + "Play Again?" + "</p>");
                     displayWinnerDialog();
                 }
             }
-            function displayWinnerDialog() {
-                    $("button.firstuserbutton").off().text("Yes");
-                    $("button.seconduserbutton").off().text("No");
+        }
+        function displayWinnerDialog() {
+                $("button.firstuserbutton").off().text("Yes");
+                $("button.seconduserbutton").off().text("No");
                     
-                    $("button.firstuserbutton").on("click", function() {
-                        location.reload();
-                    });
-                    $("button.seconduserbutton").on("click", function() {
-                        window.history.back();
-                    })
+                $("button.firstuserbutton").on("click", function() {
+                    location.reload();
+                });
+                $("button.seconduserbutton").on("click", function() {
+                    window.history.back();
+                })
                     
-                    setFadeEvents("#overlay", "#userlight", "fadein");
-            }
-            
+                setFadeEvents("#overlay", "#userlight", "fadein");
         }
         function computerAI() {
                 var computerTurn = true,
@@ -111,24 +110,45 @@ $(document).ready(function() {
             }
             function computerEither(XorO) {
                 if (computerPick === XorO && computerTurn) {
-                            for (var i = randomPosition; randomPosition < innerSelections.length; randomPosition++) {
+                    if (runOnce) {
+                        for (var i = 0; i < 9; i++) {
+                                if ($(innerSelections[i]).hasClass(userPick)) {
+                                    var firstMove = Math.floor(Math.random() * 1 + 1);
+                                    if (firstMove === 0) {
+                                        computerAppend(i + Math.floor(Math.random() * 4 + 1));
+                                         runOnce = false;
+                                        return;
+                                    }
+                                    if (i > 4 && firstMove === 1) {
+                                        computerAppend(i + Math.floor(Math.random() * -2 - 1));
+                                        runOnce = false;
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                            for (var i = randomPosition; randomPosition < innerSelections.length;) {
                                 
                                 noUserPick = !$(innerSelections[randomPosition]).hasClass("" + userPick + "");
                                 noComputerPick = !$(innerSelections[randomPosition]).hasClass("" + computerPick + "");
                                 
-                                if (!noUserPick && !noComputerPick) {
+                                if (!noUserPick || !noComputerPick) {
                                     randomPosition = Math.floor((Math.random() * (innerSelections.length) - 1));
                                 }
                                 
                                 if (noUserPick && noComputerPick) {
-                                    $(innerSelections[randomPosition]).append("<p>" + computerPick + "</p>").addClass(computerPick);
-                                    computerTurn = false;
-                                    turnCounter = 0;
-                                    recordPosition(innerSelections[randomPosition], computerPick);
+                                    computerAppend(randomPosition);
                                     return;
                                 }
                             }
                     }
+            }
+            function computerAppend(position) {
+                $(innerSelections[position]).append("<p>" + computerPick + "</p>").addClass(computerPick);
+                computerTurn = false;
+                turnCounter = 0;
+                recordPosition(innerSelections[position], computerPick);
+                
             }
         }
         function recordPosition(object, userOrcomputer) {
@@ -154,7 +174,7 @@ $(document).ready(function() {
                 ticTacToeBoard.push(i);
                 
                 $(innerSelections[i]).on("click", function() {
-                    if (turnCounter === 0) {
+                    if (turnCounter === 0 && !$(this).hasClass(computerPick)) {
                         
                         recordPosition(this, userPick);
                         if (!$(this).hasClass("X") && !$(this).hasClass("O") ) {
