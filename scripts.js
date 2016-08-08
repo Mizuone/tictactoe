@@ -101,9 +101,10 @@ $(document).ready(function() {
         }
         function computerAI() {
                 var computerTurn = true,
-                    randomPosition = Math.floor((Math.random() * (innerSelections.length) - 1)),
+                    randomPosition = Math.floor((Math.random() * (innerSelections.length - 1))),
                     noUserPick,
                     noComputerPick;
+            
             if (turnCounter === 1) {
                     computerEither("X");
                     computerEither("O");
@@ -128,7 +129,10 @@ $(document).ready(function() {
                             }
                         }
                             for (var i = randomPosition; randomPosition < innerSelections.length;) {
-                                
+                                $(innerSelections[randomPosition]).remove("p:even");
+                                if (randomPosition < 0) {
+                                    randomPosition++;
+                                }
                                 noUserPick = !$(innerSelections[randomPosition]).hasClass("" + userPick + "");
                                 noComputerPick = !$(innerSelections[randomPosition]).hasClass("" + computerPick + "");
                                 
