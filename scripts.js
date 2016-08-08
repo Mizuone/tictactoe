@@ -101,7 +101,7 @@ $(document).ready(function() {
         }
         function computerAI() {
                 var computerTurn = true,
-                    randomPosition = Math.floor((Math.random() * (innerSelections.length - 1))),
+                    randomPosition = Math.floor((Math.random() * innerSelections.length)),
                     noUserPick,
                     noComputerPick;
             
@@ -110,7 +110,7 @@ $(document).ready(function() {
                     computerEither("O");
             }
             function computerEither(XorO) {
-                if (computerPick === XorO && computerTurn) {
+            if (computerPick === XorO && computerTurn) {
                     if (runOnce) {
                         for (var i = 0; i < 9; i++) {
                                 if ($(innerSelections[i]).hasClass(userPick)) {
@@ -137,7 +137,8 @@ $(document).ready(function() {
                                 noComputerPick = !$(innerSelections[randomPosition]).hasClass("" + computerPick + "");
                                 
                                 if (!noUserPick || !noComputerPick) {
-                                    randomPosition = Math.floor((Math.random() * (innerSelections.length) - 1));
+                                    randomPosition = Math.floor((Math.random() * innerSelections.length));
+                                    return;
                                 }
                                 
                                 if (noUserPick && noComputerPick) {
